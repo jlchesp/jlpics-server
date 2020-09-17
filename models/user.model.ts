@@ -1,6 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
+// User model class, defining what type is each attribute that composes it
 const userSchema = new Schema({
 
     name: {
@@ -23,6 +24,7 @@ const userSchema = new Schema({
 
 });
 
+// Function to compare the user's password with its encryption and check if it is correct
 userSchema.method('comparePassword', function( password: string = ''): boolean {
 
     if ( bcrypt.compareSync( password, this.password ) ) {
@@ -33,6 +35,7 @@ userSchema.method('comparePassword', function( password: string = ''): boolean {
 
 });
 
+// Creation of the user interface with its attributes and functions
 interface IUser extends Document {
     name: string,
     avatar: string,
