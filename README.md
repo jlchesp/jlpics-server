@@ -1,2 +1,2 @@
 # jlpics-server
-Backend con Node.js para aplicación de fotos
+Backend with Node.js for image management application and user profiles.
