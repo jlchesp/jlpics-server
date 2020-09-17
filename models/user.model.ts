@@ -25,9 +25,9 @@ const userSchema = new Schema({
 });
 
 // Function to compare the user's password with its encryption and check if it is correct
-userSchema.method('comparePassword', function( password: string = ''): boolean {
+userSchema.method('comparePassword', function (password: string = ''): boolean {
 
-    if ( bcrypt.compareSync( password, this.password ) ) {
+    if (bcrypt.compareSync(password, this.password)) {
         return true;
     } else {
         return false;
