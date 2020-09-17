@@ -13,13 +13,14 @@ server.app.use( bodyParser.json());
 // App routes
 server.app.use('/user', userRoutes);
 
-// Conectar DB
+// DB connection and creation
 mongoose.connect('mongodb://localhost:27017/jlpics',
  { useNewUrlParser: true, useCreateIndex: true }, ( err ) => {
      if ( err ) throw err;
      console.log('Base de datos ONLINE');
  });
 
+// Test to see that the server is running
 server.start( () => {
     console.log(`Servidor corriendo en el puerto ${ server.port }`);
 })
