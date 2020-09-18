@@ -6,14 +6,16 @@ export default class Token {
     private static duration: string = '30d';
 
     constructor() { }
-
+    
+    // Function to obtain the token, where a payload is passed, which in our case will be a user
     static getJwtToken(payload: any): string {
 
         return jwt.sign({
             user: payload
         }, this.seed, { expiresIn: this.duration });
     }
-
+    
+    // Function to check the token
     static checkToken(userToken: string) {
 
         return new Promise((resolve, reject) => {
