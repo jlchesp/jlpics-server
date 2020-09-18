@@ -84,7 +84,7 @@ userRoutes.post('/create', (req: Request, res: Response) => {
 });
 
 // Post service for user update where it first checks if the token is valid through the middleware created earlier
-userRoutes.post('/update', verifyToken, (req: any, res: Response) => {
+userRoutes.post('/update', [verifyToken], (req: any, res: Response) => {
 
     // We create the body of the user. If any field is sent empty, it keeps the property it currently has
     const user = {
