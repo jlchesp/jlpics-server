@@ -60,7 +60,8 @@ userRoutes.post('/create', (req: Request, res: Response) => {
 
     // Function to create a user
     User.create(user).then(userDB => {
-
+        
+        // We create a token with the information of the new user
         const tokenUser = Token.getJwtToken({
             _id: userDB._id,
             name: userDB.name,
@@ -82,14 +83,17 @@ userRoutes.post('/create', (req: Request, res: Response) => {
 
 });
 
+// Post service for user update where it first checks if the token is valid through the middleware created earlier
 userRoutes.post('/update', verifyToken, (req: any, res: Response) => {
 
+    // We create the body of the user. If any field is sent empty, it keeps the property it currently has
     const user = {
         name: req.body.name || req.user.name,
         avatar: req.body.avatar || req.user.avatar,
         email: req.body.email || req.user.email
     };
-
+    
+    // We look for a user by his id in the db and update him with the new information sent
     User.findByIdAndUpdate(req.user._id, user, { new: true }, (err, userDB) => {
 
         if (err) throw err;
@@ -100,7 +104,8 @@ userRoutes.post('/update', verifyToken, (req: any, res: Response) => {
                 message: 'There is no user with that id'
             });
         }
-
+        
+        // We create a token with updated user information
         const tokenUser = Token.getJwtToken({
             _id: userDB._id,
             name: userDB.name,
