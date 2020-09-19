@@ -60,7 +60,7 @@ userRoutes.post('/create', (req: Request, res: Response) => {
 
     // Function to create a user
     User.create(user).then(userDB => {
-        
+
         // We create a token with the information of the new user
         const tokenUser = Token.getJwtToken({
             _id: userDB._id,
@@ -92,7 +92,7 @@ userRoutes.post('/update', [verifyToken], (req: any, res: Response) => {
         avatar: req.body.avatar || req.user.avatar,
         email: req.body.email || req.user.email
     };
-    
+
     // We look for a user by his id in the db and update him with the new information sent
     User.findByIdAndUpdate(req.user._id, user, { new: true }, (err, userDB) => {
 
@@ -104,7 +104,7 @@ userRoutes.post('/update', [verifyToken], (req: any, res: Response) => {
                 message: 'There is no user with that id'
             });
         }
-        
+
         // We create a token with updated user information
         const tokenUser = Token.getJwtToken({
             _id: userDB._id,
@@ -119,6 +119,17 @@ userRoutes.post('/update', [verifyToken], (req: any, res: Response) => {
         });
     });
 
+});
+
+// Get service to get the information of a user
+userRoutes.get('/', [verifyToken], (req: any, res: Response) => {
+
+    const user = req.user;
+
+    res.json({
+        ok: true,
+        user
+    });
 });
 
 export default userRoutes;
